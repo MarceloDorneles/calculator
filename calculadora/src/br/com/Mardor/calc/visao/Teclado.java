@@ -30,10 +30,10 @@ public class Teclado extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		
 		//linha 1
-//		c.gridwidth = 2;
-		adicionarBotao("AC", COR_CINZA_ESCURO, c, 0, 0, 2);
-//		c.gridwidth = 1;
-		adicionarBotao("%", COR_CINZA_ESCURO, c, 2, 0, 1);
+
+		adicionarBotao("AC", COR_CINZA_ESCURO, c, 0, 0);
+		adicionarBotao("±", COR_CINZA_ESCURO, c, 1 , 0);
+		adicionarBotao("%", COR_CINZA_ESCURO, c, 2, 0);
 		adicionarBotao("/", COR_LARANJA, c, 3, 0);
 		
 		//linha 2
@@ -55,10 +55,8 @@ public class Teclado extends JPanel implements ActionListener{
 		adicionarBotao("+", COR_LARANJA, c, 3, 3);
 		
 		//linha 5
-		c.gridwidth = 2;
-		adicionarBotao("0", COR_CINZA_CLARO, c, 0, 4);
-		c.gridwidth = 1;
-		adicionarBotao(",", COR_CINZA_CLARO, c, 2, 4);
+		adicionarBotao("0", COR_CINZA_CLARO, c, 0, 4, 2);
+		adicionarBotao(",", COR_CINZA_CLARO, c, 2, 4, 1);
 		adicionarBotao("=", COR_LARANJA, c, 3, 4);
 }
 

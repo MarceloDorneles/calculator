@@ -6,7 +6,7 @@ import java.util.List;
 public class Memoria {
 	
 	private enum TipoComando {
-			ZERAR, NUMERO, PORC,  DIV, MULT, SUB, SOMA, IGUAL, VIRGULA;
+			ZERAR, NUMERO, PORC,  DIV, MULT, SUB, SOMA, IGUAL, VIRGULA, MAISMENOS;
 	};
 
 	private static final Memoria instancia = new Memoria();
@@ -45,6 +45,10 @@ public class Memoria {
 			textoBuffer = "";
 			substituir = false;
 			ultimaOperacao = null;
+		} else if (tipoComando == TipoComando.MAISMENOS && textoAtual.contains("-")) {
+			textoAtual = textoAtual.substring(1);
+		} else if (tipoComando == TipoComando.MAISMENOS && !textoAtual.contains("-")) {
+			textoAtual = "-" + textoAtual;
 		} else if (tipoComando == TipoComando.NUMERO 
 				|| tipoComando == TipoComando.VIRGULA) {
 			textoAtual = substituir ? texto : textoAtual + texto;
@@ -60,7 +64,7 @@ public class Memoria {
 	}
 
 	private String obterResultadoOperacao() {
-		if (ultimaOperacao == null) {
+		if (ultimaOperacao == null || ultimaOperacao == TipoComando.IGUAL) {
 			return textoAtual;
 		}
 		
@@ -81,9 +85,9 @@ public class Memoria {
 			resultado = numeroBuffer * numeroAtual/100;
 		}
 		
-		String resultadoString = Double.toString(resultado).replace(".",",");
-		
-		return textoAtual;
+		String texto = Double.toString(resultado).replace(".", ",");
+		boolean inteiro = texto.endsWith(",0");
+		return inteiro ? texto.replace(",0", "") : texto;
 	}
 
 	private TipoComando detectarTipoComando(String texto) {
@@ -112,6 +116,8 @@ public class Memoria {
 				return TipoComando.VIRGULA;
 			} else if("=".equals(texto)) {
 				return TipoComando.IGUAL;
+			} else if("±".equals(texto)) {
+				return TipoComando.MAISMENOS;
 			}
 		}
 		return null;
